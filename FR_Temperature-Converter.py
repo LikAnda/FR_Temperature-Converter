@@ -10,53 +10,147 @@ def slowPrint(s):
 
 # fonction principale permettant de sélectionner le type de conversion
 def main():
-    slowPrint("\n#################[Covertisseur de Température]#################\n")
-    slowPrint("\n[1] Calculer de degrés fahrenheit à degrés celsius\n[2] Calculer de degrés celsius à degrés fahrenheit")
+    slowPrint("\n#################[Convertisseur de Température]#################\n")
+    slowPrint("\nSélectionner votre type de degré à convertir:")
+    slowPrint("\n[1] Degrés Celsius\n[2] Degrés Fahrenheit\n[3] Degrés Kelvin")
+
+    # FIRST SELECTION
+
     slowPrint("\n\nIndiquer le numéro souhaité: ")
     try:
-        selection = int(input(''))
+        global firstSelection
+        firstSelection = int(input(''))
     except ValueError: #debug
         input("\nCe n'est pas un nombre.\nAppuyer sur entrer pour fermer le programme...")
         exit()
     
-    if selection == 1:
-        TfahrenheitToTclesius()
-    if selection == 2:
-        TcelsiusToTfahrenheit()
-    elif selection != 1 and selection != 2: # debug
+    if firstSelection == 1:
+        slowPrint("Indiquer le nombre de degrès celsius: ")
+        try:
+            global celsiusToConvert
+            celsiusToConvert = int(input(''))
+        except ValueError: #debug
+            input("\nCe n'est pas un nombre.\nAppuyer sur entrer pour fermer le programme...")
+            exit()
+
+    if firstSelection == 2:
+        slowPrint("Indiquer le nombre de degrès fahrenheit: ")
+        try:
+            global fahrenheitToConvert
+            fahrenheitToConvert = int(input(''))
+        except ValueError: #debug
+            input("\nCe n'est pas un nombre.\nAppuyer sur entrer pour fermer le programme...")
+            exit()
+
+    if firstSelection == 3:
+        slowPrint("Indiquer le nombre de degrès kelvin: ")
+        try:
+            global kelvinToConvert
+            kelvinToConvert = int(input(''))
+        except ValueError: #debug
+            input("\nCe n'est pas un nombre.\nAppuyer sur entrer pour fermer le programme...")
+            exit()
+        
+    elif firstSelection != 1 and firstSelection != 2 and firstSelection != 3: # debug
+        input("\nCette option n'existe pas.\nAppuyer sur entrer pour fermer le programme...")
+        exit()
+    
+    
+    # SECOND SELECTION
+    
+    slowPrint("\nSélctionner le type de degrès auquel convertir:")
+
+
+    if firstSelection == 1:
+        slowPrint("\n[1] Degrés Fahrenheit\n[2] Degrés Kelvin")
+        slowPrint("\n\nIndiquer le numéro souhaité: ")
+        try:
+            secondSelection = int(input(''))
+        except ValueError: #debug
+            input("\nCe n'est pas un nombre.\nAppuyer sur entrer pour fermer le programme...")
+            exit()
+        if secondSelection == 1:
+            convertToFahrenheit()
+        if secondSelection == 2:
+            convertToKelvin()
+        elif secondSelection != 1 and secondSelection != 2:
+            input("\nErreur.\nAppuyer sur entrer pour fermer le programme...")
+            exit()
+        
+    if firstSelection == 2:
+        slowPrint("\n[1] Degrés Celsius\n[2] Degrés Kelvin")
+        slowPrint("\n\nIndiquer le numéro souhaité: ")
+        try:
+            secondSelection = int(input(''))
+        except ValueError: #debug
+            input("\nCe n'est pas un nombre.\nAppuyer sur entrer pour fermer le programme...")
+            exit()
+        if secondSelection == 1:
+            convertToCelsius()
+        if secondSelection == 2:
+            convertToKelvin()
+        elif secondSelection != 1 and secondSelection != 2:
+            input("\nErreur.\nAppuyer sur entrer pour fermer le programme...")
+            exit()
+
+    if firstSelection == 3:
+        slowPrint("\n[1] Degrés Celsius\n[2] Degrés Fahrenheit")
+        slowPrint("\n\nIndiquer le numéro souhaité: ")
+        try:
+            secondSelection = int(input(''))
+        except ValueError: #debug
+            input("\nCe n'est pas un nombre.\nAppuyer sur entrer pour fermer le programme...")
+            exit()
+        if secondSelection == 1:
+            convertToCelsius()
+        if secondSelection == 2:
+            convertToFahrenheit()
+        elif secondSelection != 1 and secondSelection != 2:
+            input("\nErreur.\nAppuyer sur entrer pour fermer le programme...")
+            exit()    
+    
+    elif firstSelection != 1 and firstSelection != 2 and firstSelection != 3: # debug
         input("\nCette option n'existe pas.\nAppuyer sur entrer pour fermer le programme...")
         exit()
 
-# fonction permettant de calculer de degrés fahrenheit à degrés celsius
-def TfahrenheitToTclesius():
-    slowPrint("\nIndiquer le nombre de degrés fahrenheit: ")
-    try:
-        Tfahrenheit = int(input(''))
-    except ValueError: # debug
-        input("\nCe n'est pas un nombre.\nAppuyer sur entrer pour fermer le programme...")
-        exit()
+def convertToCelsius():
+    if firstSelection == 1:
+        finalConversion = (fahrenheitToConvert - 32) * 5/9
+        finalConversion = round(finalConversion, 2)
+        slowPrint(f"\nLa température de {fahrenheitToConvert}°F en degrés Celsius est de {finalConversion}°C.\n")
+        time.sleep(1)
+    elif firstSelection == 3:
+        finalConversion = kelvinToConvert - 273.5
+        finalConversion = round(finalConversion, 2)
+        slowPrint(f"\nLa température de {kelvinToConvert} K en degrés Celsius est de {finalConversion}°C.\n")
+        time.sleep(1)
 
-    Tcelsius = (Tfahrenheit - 32) * 5/9
-    Tcelsius = round(Tcelsius, 1)
+# Convert To Fahrenheit
+def convertToFahrenheit():
+    if firstSelection == 1:
+        finalConversion = (celsiusToConvert * 9/5) + 32
+        finalConversion = round(finalConversion, 2)
+        slowPrint(f"\nLa température de {celsiusToConvert}°C en degrés Fahrenheit est de {finalConversion}°F.\n")
+        time.sleep(1)
+    elif firstSelection == 3:
+        finalConversion = (kelvinToConvert - 273.15) * 9/5 + 32
+        finalConversion = round(finalConversion, 2)
+        slowPrint(f"\nLa température de {kelvinToConvert} K en degrés Fahrenheit est de {finalConversion}°F.\n")
+        time.sleep(1)
 
-    slowPrint(f"La température de {Tfahrenheit}°F en degrés est de {Tcelsius}°C.\n")
-    time.sleep(0.5)
+# Convert To Kelvin
+def convertToKelvin():
+    if firstSelection == 1:
+        finalConversion = celsiusToConvert + 273.1
+        finalConversion = round(finalConversion, 2)
+        slowPrint(f"\nLa température de {celsiusToConvert}°C en degrés kelvin est de {finalConversion} K.\n")
+        time.sleep(1)
+    elif firstSelection == 2:
+        finalConversion = (fahrenheitToConvert - 32) * 5/9 + 273.15
+        finalConversion = round(finalConversion, 2)
+    slowPrint(f"\nLa température de {fahrenheitToConvert}°F en degrés Kelvin est de {finalConversion} K.\n")
+    time.sleep(1)
 
-# fonction premettant de claculer de degrés celsius à degrés fahrenheit
-def TcelsiusToTfahrenheit():
-    slowPrint("\nIndiquer le nombre de degrés celsius: ")
-    try:
-        Tcelsius = int(input(''))
-    except ValueError: # debug
-        input("\nCe n'est pas un nombre.\nAppuyer sur entrer pour fermer le programme...")
-        exit()
-
-    Tfahrenheit = (Tcelsius * 9/5) + 32
-    Tfahrenheit = round(Tfahrenheit, 1)
-
-    slowPrint(f"La température de {Tcelsius}°C en degrès fahrenheit est de {Tfahrenheit}°F\n")
-    time.sleep(0.5)
-
-# permet de répeter la boucle indéfiniment
 while True:
     main()
+
