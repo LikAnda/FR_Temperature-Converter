@@ -1,21 +1,28 @@
+'''
+Temperature Converter
+By LikAnda
+V.2.1.0
+
+'''
+
+
 import sys
 import time
 
-# definition de "slowPrint" utilisé pour le style
+# slowPrint() function for style
 def slowPrint(s):
     for c in s :
         sys.stdout.write(c)
         sys.stdout.flush()
         time.sleep(0.01)
 
-# fonction principale permettant de sélectionner le type de conversion
+# main() function
 def main():
     slowPrint("\n#################[Convertisseur de Température]#################\n")
     slowPrint("\nSélectionner votre type de degré à convertir:")
     slowPrint("\n[1] Degrés Celsius\n[2] Degrés Fahrenheit\n[3] Degrés Kelvin")
 
     # FIRST SELECTION
-
     slowPrint("\n\nIndiquer le numéro souhaité: ")
     try:
         global firstSelection
@@ -50,14 +57,14 @@ def main():
         except ValueError: #debug
             input("\nCe n'est pas un nombre.\nAppuyer sur entrer pour fermer le programme...")
             exit()
-        
+    
+    # 1st debug
     elif firstSelection != 1 and firstSelection != 2 and firstSelection != 3: # debug
         input("\nCette option n'existe pas.\nAppuyer sur entrer pour fermer le programme...")
         exit()
     
     
     # SECOND SELECTION
-    
     slowPrint("\nSélctionner le type de degrès auquel convertir:")
 
 
@@ -107,18 +114,23 @@ def main():
             convertToFahrenheit()
         elif secondSelection != 1 and secondSelection != 2:
             input("\nErreur.\nAppuyer sur entrer pour fermer le programme...")
-            exit()    
-    
+            exit()
+
+    # 2nd selection debug
     elif firstSelection != 1 and firstSelection != 2 and firstSelection != 3: # debug
         input("\nCette option n'existe pas.\nAppuyer sur entrer pour fermer le programme...")
         exit()
 
+
+# Convert To Celsius
 def convertToCelsius():
-    if firstSelection == 1:
+    # Fahrenheit To Celsius
+    if firstSelection == 2:
         finalConversion = (fahrenheitToConvert - 32) * 5/9
         finalConversion = round(finalConversion, 2)
         slowPrint(f"\nLa température de {fahrenheitToConvert}°F en degrés Celsius est de {finalConversion}°C.\n")
         time.sleep(1)
+    # Kelvin To Celsius
     elif firstSelection == 3:
         finalConversion = kelvinToConvert - 273.5
         finalConversion = round(finalConversion, 2)
@@ -127,11 +139,13 @@ def convertToCelsius():
 
 # Convert To Fahrenheit
 def convertToFahrenheit():
+    #Celsius To Fahrenheit
     if firstSelection == 1:
         finalConversion = (celsiusToConvert * 9/5) + 32
         finalConversion = round(finalConversion, 2)
         slowPrint(f"\nLa température de {celsiusToConvert}°C en degrés Fahrenheit est de {finalConversion}°F.\n")
         time.sleep(1)
+    # Kelvin To Fahrenheit
     elif firstSelection == 3:
         finalConversion = (kelvinToConvert - 273.15) * 9/5 + 32
         finalConversion = round(finalConversion, 2)
@@ -140,17 +154,19 @@ def convertToFahrenheit():
 
 # Convert To Kelvin
 def convertToKelvin():
+    # Celsius To Kelvin
     if firstSelection == 1:
         finalConversion = celsiusToConvert + 273.1
         finalConversion = round(finalConversion, 2)
         slowPrint(f"\nLa température de {celsiusToConvert}°C en degrés kelvin est de {finalConversion} K.\n")
         time.sleep(1)
+    # Fahrenheit To Kelvin
     elif firstSelection == 2:
         finalConversion = (fahrenheitToConvert - 32) * 5/9 + 273.15
         finalConversion = round(finalConversion, 2)
     slowPrint(f"\nLa température de {fahrenheitToConvert}°F en degrés Kelvin est de {finalConversion} K.\n")
     time.sleep(1)
 
+
 while True:
     main()
-
